@@ -3,6 +3,7 @@ all:
 clean:
 	rm -f ./createShell
 install:
+	gcc createShell.c -o createShell
 	install createShell /bin/createShell
 
 uninstall:
