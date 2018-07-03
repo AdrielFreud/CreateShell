@@ -32,7 +32,7 @@ SOFTWARE.
 #define read(buffer, size, var, wrvar) while(fgets(buffer, sizeof(size), var) != NULL){fprintf(wrvar, buffer);}
 
 void banner(void){
-	printf("\n\n______________________________________________\n\n\t# Desenvolvido por Adriel Freud!\n\t# Contato: businessc0rp2k17@gmail.com\n\t# FB: http://www.facebook.com/xrn401\n\t   =>DebutySecTeamSecurity<=\n\n_______________________________________________\n\n");
+	printf("\n\n______________________________________________\n\n\n\t# Desenvolvido por Adriel Freud!\n\t# Contato: businessc0rp2k17@gmail.com\n\t# FB: http://www.facebook.com/xrn401\n\t   =>DebutySecTeamSecurity<=\n\n_______________________________________________\n\n");
 }
 
 void fatal(char *msng){
