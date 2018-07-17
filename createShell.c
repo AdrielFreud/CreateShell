@@ -37,7 +37,6 @@ void banner(void){
 
 void fatal(char *msng){
 	fprintf(stderr, "[WARNING] - %s\n", msng);
-	exit(0);
 }
 
 int main(int argc, char *argv[]){
